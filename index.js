@@ -8,14 +8,10 @@ const app=express();
 var Port=process.env.PORT || 1000;
 app.use(express.json());
 const MONGO_URL=process.env.MONGO_URL;
-const config = {
-    connectTimeoutMS: 5000,
-  socketTimeoutMS: 5000,
-  useUnifiedTopology: true
-  }
+
 async function createConnection()
 {
-    const client=new MongoClient(MONGO_URL,config);
+    const client=new MongoClient(MONGO_URL);
     await client.connect();
     console.log('mongo is connect')
 return client;
