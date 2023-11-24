@@ -1,14 +1,16 @@
 import express from 'express';
-import cors from 'cors';
-import { MongoClient } from 'mongodb';
+import cors from "cors";
+const app = express();
+import {MongoClient } from 'mongodb';
+import { moviesRouter } from './routes/movies.js';
+import { usersRouter } from './routes/users.js';
 import dotenv from 'dotenv';
-import { contactrouter } from './contact.js';
 dotenv.config();
-const app=express();
-var Port=process.env.PORT || 1000;
-app.use(express.json());
-const MONGO_URL=process.env.MONGO_URL;
+console.log(process.env.MONGO_URL);
 
+const PORT=process.env.PORT;
+app.use(express.json());
+const MONGO_URL = process.env.MONGO_URL;
 async function createConnection()
 {
     const client=new MongoClient(MONGO_URL);
@@ -16,15 +18,14 @@ async function createConnection()
     console.log('mongo is connect')
 return client;
 }
-export const client=await createConnection();
-app.get('/',function(req,res){
-    res.send('hello world')
+  export const client = await createConnection();
+app.get('/', function (req, res) {
+  res.send('Hello Worldggg')
 })
-
 app.use(cors());
-app.use('/contact',contactrouter)
-app.listen(Port,function(){
-    console.log('server start from port 8000')
-})
+app.use('/movies',moviesRouter);
+app.use('/users',usersRouter);
+app.listen(PORT,function()
+{console.log(`server start from PORT ${PORT}` )});
 
 
