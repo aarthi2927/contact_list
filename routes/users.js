@@ -20,7 +20,7 @@ async function genPassword(password){
           password:hashPassword,
       }
       console.log(newUser);
-      const result = await client.db("b30wd")
+      const result = await client.db("filesystem")
       .collection("users").insertOne(newUser);
       res.send(result);});
 
@@ -28,7 +28,7 @@ async function genPassword(password){
        {
         const { username, password } = req.body;
       // db.users.findOne({username: "tamil"})
-      const userFromDB = await client.db("b30wd").collection("users")
+      const userFromDB = await client.db("filesystem").collection("users")
       .findOne({ username:username});
       console.log(userFromDB);
       if (!userFromDB) 
@@ -54,7 +54,7 @@ async function genPassword(password){
     const id=req.user.userid;
     console.log(req.user.userid);
     const o_id=new ObjectId(id);
-    const singleuser=await client.db("b30wd").collection("users")
+    const singleuser=await client.db("filesystem").collection("users")
     .findOne({_id:o_id});
     res.status(200).send({user:singleuser});
     console.log(singleuser);
@@ -66,7 +66,7 @@ async function genPassword(password){
   console.log(req.user.userid);
   const o_id=new ObjectId(id);
   const updateuser=req.body;
-  const singleuseredit=await client.db("b30wd").collection("users")
+  const singleuseredit=await client.db("filesystem").collection("users")
   .UpdateOne({_id:o_id},{$set:updateuser});
   res.status(200).send({user:singleuseredit});
   console.log(singleuseredit);
@@ -77,7 +77,7 @@ async function genPassword(password){
   const id=req.user.userid;
   console.log(req.user.userid);
   const o_id=new ObjectId(id);
-  const singleuserdelete=await client.db("b30wd").collection("users")
+  const singleuserdelete=await client.db("filesystem").collection("users")
   .deleteOne({_id:o_id});
   res.status(200).send({user:singleuserdelete});
   console.log(singleuserdelete);

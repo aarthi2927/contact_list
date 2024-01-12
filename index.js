@@ -1,16 +1,32 @@
 import express from 'express';
-import cors from "cors";
-const app = express();
 import {MongoClient } from 'mongodb';
-import { moviesRouter } from './routes/movies.js';
+import {filesRouter } from './routes/files.js';
 import { usersRouter } from './routes/users.js';
 import dotenv from 'dotenv';
+import path from 'path';
+import bodyParser from 'body-parser';
+import cors from "cors";
 dotenv.config();
-console.log(process.env.MONGO_URL);
-
-const PORT=process.env.PORT;
+const app = express();
 app.use(express.json());
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+console.log(process.env.MONGO_URL);
+const PORT=process.env.PORT;
 const MONGO_URL = process.env.MONGO_URL;
+const __filename = new URL(import.meta.url).pathname;
+const __dirname = path.dirname(__filename);
+app.use(cors({
+  origin: 'http://localhost:3000'
+ }));
+
+app.use('/uploads',express.static('uploads'));
+//app.use('/uploads', express.static(path.join(__dirname,'uploads')))
+/*
+app.use(express.static(path.join(__dirname,'../../basicfendloginusercurd/src/uploads')));
+//app.use('/uploads', express.static(path.join(__dirname,'uploads')))
+ //  cb(null,'../../basicfendloginusercurd/src/uploads')
+*/
 async function createConnection()
 {
     const client=new MongoClient(MONGO_URL);
@@ -22,8 +38,7 @@ return client;
 app.get('/', function (req, res) {
   res.send('Hello Worldggg')
 })
-app.use(cors());
-app.use('/movies',moviesRouter);
+app.use('/files',filesRouter);
 app.use('/users',usersRouter);
 app.listen(PORT,function()
 {console.log(`server start from PORT ${PORT}` )});

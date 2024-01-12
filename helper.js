@@ -1,29 +1,32 @@
 import { client } from './index.js';
 import { ObjectId } from 'mongodb';
-export async function getMovieById(id) {
+export async function getfilesById(id) {
   const o_id=new ObjectId(id);
-  return await client.db("b30wd").collection("movies")
+  return await client.db("filesystem").collection("files")
     .findOne({_id:o_id});
 }
 
-export async function getAllMovies() {
-  return await client.db("b30wd").collection("movies")
+export async function getAllfiles() {
+  return await client.db("filesystem").collection("files")
     .find({})
     .toArray();
 }
-export async function deleteMovie(id) {
+export async function deletefiles(id) {
   const o_id=new ObjectId(id);
-  return client.db("b30wd")
-    .collection("movies")
+  return client.db("filesystem")
+    .collection("files")
     .deleteMany({ _id: o_id });
 }
-export async function createMovies(data) {
-  return await client.db("b30wd")
-    .collection("movies").insertOne(data);
+export async function createfiles(data1) {
+  return await client.db("filesystem")
+    .collection("files").insertOne(data1);
 }
-export async function updateMovie(id, updateData) {
+
+export async function updatefiles(id, updateData) {
   const o_id=new ObjectId(id);
-  return client.db("b30wd")
-    .collection("movies") 
+  return client.db("filesystem")
+    .collection("files") 
     .updateOne({ _id: o_id }, { $set: updateData });
 }
+
+//files filesystem
