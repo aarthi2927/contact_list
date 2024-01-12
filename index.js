@@ -17,7 +17,7 @@ const MONGO_URL = process.env.MONGO_URL;
 const __filename = new URL(import.meta.url).pathname;
 const __dirname = path.dirname(__filename);
 app.use(cors({
-  origin: 'https://65a123eb967a8bbb5c51d1e4--stellular-sunflower-ea5f6e.netlify.app/'
+  origin: 'https://65a123eb967a8bbb5c51d1e4--stellular-sunflower-ea5f6e.netlify.app'
  }));
 
 app.use('/uploads',express.static('uploads'));
