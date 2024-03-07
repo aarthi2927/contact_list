@@ -20,8 +20,8 @@ app.use(cors({
   origin: 'https://stellular-sunflower-ea5f6e.netlify.app'
  }));
 
-//app.use('/uploads',express.static('uploads'));
-app.use('/uploads', express.static(path.join(__dirname,'uploads')))
+app.use('/uploads',express.static('uploads'));
+//app.use('/uploads', express.static(path.join(__dirname,'uploads')))
 //app.use('/uploads', express.static(path.join(__dirname,'uploads')))
 /*
 app.use(express.static(path.join(__dirname,'../../basicfendloginusercurd/src/uploads')));
